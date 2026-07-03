@@ -13,6 +13,11 @@ class ScheduleSeeder extends Seeder
         // Get all teachers
         $teachers = Teacher::all();
 
+        // Delete existing schedules
+        Schedule::truncate();
+
+        $totalSchedules = 0;
+
         // For each teacher, create a schedule
         foreach ($teachers as $teacher) {
             // Skip if teacher has no days or periods
@@ -32,8 +37,11 @@ class ScheduleSeeder extends Seeder
                         'teacher_id' => $teacher->id,
                         'teacher_name' => $teacher->name,
                     ]);
+                    $totalSchedules++;
                 }
             }
         }
+
+        $this->command->info('✅ ' . $totalSchedules . ' schedule entries created!');
     }
 }

@@ -32,3 +32,9 @@ Route::get('/teachers', [TeacherController::class, 'index']);  // ← Now this w
 Route::get('/test', function() {
     return 'Hello World!';
 });
+
+// Teacher Login Routes
+Route::get('/teacher/login', [App\Http\Controllers\TeacherLoginController::class, 'showLoginForm'])->name('teacher.login');
+Route::post('/teacher/login', [App\Http\Controllers\TeacherLoginController::class, 'login'])->name('teacher.login.post');
+Route::get('/teacher/dashboard', [App\Http\Controllers\TeacherLoginController::class, 'dashboard'])->name('teacher.dashboard')->middleware('auth:teacher');
+Route::post('/teacher/logout', [App\Http\Controllers\TeacherLoginController::class, 'logout'])->name('teacher.logout');
